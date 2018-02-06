@@ -12,6 +12,16 @@ $ gulp syntax:check
 $ gulp watch
 ```
 
+## Preview & Publishing
+```bash
+# Watching change with gulp and preview the blueprint
+$ npm run watch &
+$ npm run preview
+
+# Publishing
+$ APIARY_API_KEY=<my_key> API_NAME=<api_name> npm run publish
+```
+
 ## Contributing
 Contributions, questions, and comments are all welcomed and encouraged!
 

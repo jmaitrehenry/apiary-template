@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Default template for apiary project",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "preview": "docker run -v `pwd`:/code -p 8080:8080 jmaitrehenry/apiary preview --watch --server --host=0.0.0.0 --path=/code",
+    "publish": "docker run -e APIARY_API_KEY=$APIARY_API_KEY -v `pwd`:/code jmaitrehenry/apiary publish --path=/code --api-name=$API_NAME",
+    "watch": "gulp && gulp watch"
   },
   "keywords": [
     "apiary",
