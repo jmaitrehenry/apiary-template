@@ -1,0 +1,22 @@
+{
+  "name": "apiary-template",
+  "version": "1.0.0",
+  "description": "Default template for apiary project",
+  "scripts": {
+    "build": "gulp"
+  },
+  "keywords": [
+    "apiary",
+    "api",
+    "blueprint",
+    "template"
+  ],
+  "author": "Julien Maitrehenry <contact@jmaitrehenry.ca>",
+  "license": "MIT",
+  "dependencies": {
+    "drafter.js": "^2.6.7",
+    "gulp": "^3.9.1",
+    "gulp-sequence": "^1.0.0",
+    "hercule": "^4.1.1"
+  }
+}
