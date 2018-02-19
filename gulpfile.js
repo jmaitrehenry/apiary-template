@@ -9,7 +9,7 @@ const drafter = require('drafter.js');
 const entrypoint = path.join(__dirname, 'api.apib');
 const endpoint = path.join(__dirname, 'apiary.apib');
 
-gulp.task('transclude', async function() {
+const transclude = async () => {
   try {
     fs.accessSync(entrypoint, fs.F_OK | fs.R_OK);
   } catch (e) {
@@ -17,12 +17,12 @@ gulp.task('transclude', async function() {
     process.exit(1);
   }
 
-  return await hercule.transcludeFile(entrypoint, function(err, output) {
+  return await hercule.transcludeFile(entrypoint, (err, output) => {
     fs.writeFileSync(endpoint, output);
-  })
-});
+  });
+};
 
-gulp.task('syntax:check', function() {
+const syntaxCheck = (cb = () => {}) => {
   try {
     fs.accessSync(endpoint, fs.F_OK | fs.R_OK);
   } catch (e) {
@@ -46,13 +46,21 @@ gulp.task('syntax:check', function() {
         exit(1);
     } else {
         console.log("Document is valid with no warnings.");
+        cb();
     }
+  });
+}
+
+gulp.task('transclude', transclude);
+
+gulp.task('syntax:check', syntaxCheck);
+
+gulp.task('watch', function() {
+  gulp.watch(['**/*.apib', '!apiary.apib'], (event) => {
+    syntaxCheck(() => {
+      transclude();
+    })
   });
 });
 
-gulp.task('watch', function() {
-  gulp.watch(['**/*.apib', '!apiary.apib'], gulpSequence(['transclude', 'syntax:check']));
-});
-
 gulp.task('default', gulpSequence(['transclude', 'syntax:check']));
-
